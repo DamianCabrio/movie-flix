@@ -50,7 +50,6 @@ $(document).ready(function () {
       if (state === "success") {
         //Se muestra la vista de película, creando un objeto Movie, y cargado la pagina con sus datos
         $(".placeholder").removeClass("placeholder");
-        document.title = movieOjb.title;
 
         const movieOjb = new Movie(
           idMovie,
@@ -75,7 +74,8 @@ $(document).ready(function () {
           response.credits.crew,
           response.similar.results
         );
-
+        document.title = movieOjb.title;
+        
         //Imagen de fondo
         movieBg.attr("src", movieOjb.backdropImg);
 
