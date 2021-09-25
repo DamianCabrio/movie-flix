@@ -1,5 +1,17 @@
+//Entidades
+
+//Variables (constantes, selectores, arrays)
+
+//Funciones
+
+//Eventos
+
+//Logica
+
+//Clases
 class User {
-  constructor(name, surname, username, password) {
+  constructor(id,name, surname, username, password) {
+    this.id = id;
     this.name = name;
     this.surname = surname;
     this.username = username.toLowerCase();
@@ -17,6 +29,7 @@ class Movie {
   }
 }
 
+//Por ahora creo objetos de películas para mostrar aca, luego se traerán películas populares de una api
 const pelicula1 = new Movie(
   "Volver al futuro",
   1985,
@@ -50,7 +63,7 @@ const pelicula4 = new Movie(
 
 const peliculas = [pelicula1, pelicula2, pelicula3, pelicula4];
 const divPeliculas = document.getElementById("divPeliculas");
-
+//Se crean las cards de películas para mostrar en el index
 peliculas.forEach((pelicula) => {
   const contenedor = document.createElement("div");
   contenedor.classList.add("col");
@@ -70,49 +83,113 @@ peliculas.forEach((pelicula) => {
   divPeliculas.appendChild(contenedor);
 });
 
+//Se obtienen los elementos para poder operar, y se agregan eventos a algunos de ellos
+const registerModal = document.getElementById("modalRegister");
+const registerForm = document.getElementById("registerForm");
+registerForm.addEventListener("submit",signUpUser);
+
+const loginModal = document.getElementById("modalLogIn");
+const loginForm = document.getElementById("loginForm");
+loginForm.addEventListener("submit",login);
+
+const loginButton = document.getElementById("logInButton");
+const registerButton = document.getElementById("registerButton");
+const logOutButton = document.getElementById("logOutButton");
+logOutButton.addEventListener("click",logOut);
+
+//Obtiene el objeto de usuarios de local storage
 function getUsersObj() {
   return JSON.parse(localStorage.getItem("users"));
 }
 
-function signUpUser() {
+//Función para iniciar sesión, obtiene los datos del formulario, y hace verificaciones necesarias (username único y restricciones de contraseña)
+function signUpUser(e) {
+  e.preventDefault();
+
   if (localStorage.getItem("users") === null) {
     localStorage.setItem("users", JSON.stringify([]));
   }
 
-  const name = prompt("Ingrese su nombre");
-  const surname = prompt("Ingrese su apellido");
-  const username = prompt("Ingrese su nombre de usuario");
-  const password = prompt("Ingrese su contraseña");
-  newUser = new User(name, surname, username, password);
+  const name = document.getElementById("nameRegister").value;
+  const surname = document.getElementById("surnameRegister").value;
+  const username = document.getElementById("userRegister").value;
+
+  if(getUsersObj().find(e => e.username === username) !== undefined){
+    console.log("Error: El nombre de usuario ya existe");
+    return false;
+  }
+
+  const password = document.getElementById("passwordRegister").value;
+  const confirmedPassword = document.getElementById("confirmPasswordRegister").value;
+
+  if(password != confirmedPassword ){
+    console.log("Error: Las contraseñas ingresadas son distintas");
+    return false;
+  }else if(password.length < 8){
+    console.log("Error: La contraseña debe tener por lo menos 8 caracteres");
+    return false;
+  }
+
+  newUser = new User(calculateUserId(),name, surname, username, password);
 
   const usersObj = JSON.parse(localStorage.getItem("users"));
   usersObj.push(newUser);
   localStorage.setItem("users", JSON.stringify(usersObj));
 
+  localStorage.setItem("loggedInUser", newUser.id);
+
+  console.log("Se creo el usuario con éxito");
+  createWelcomeMessage(true);
+  bootstrap.Modal.getInstance(registerModal).hide();
+  registerForm.reset();
   return newUser;
 }
 
-function login() {
+//Función para iniciar sesión, verifica si existe el usuario
+function login(e) {
+  e.preventDefault();
+
   if (localStorage.getItem("users") === null) {
+    console.log("Error: No existe el usuario");
     return false;
   }
 
-  const username = prompt("Ingrese su nombre de usuario").toLocaleLowerCase();
-  const password = prompt("Ingrese su contraseña");
+  const username = document.getElementById("userLogin").value.toLowerCase();
+  const password = document.getElementById("passwordLogin").value;
 
-  const usersObj = getUsersObj();
-  user = usersObj.find(
+  user = getUsersObj().find(
     (user) => user.username === username && user.password === password
   );
 
   if (user == undefined) {
+    console.log("Error: No existe el usuario");
     return false;
   }
+
+  localStorage.setItem("loggedInUser", user.id);
+
+  console.log("Se inicio la sesión con exito");
+  createWelcomeMessage(false);
+  bootstrap.Modal.getInstance(loginModal).hide();
+  loginForm.reset();
 
   return user;
 }
 
-function createWelcomeMessage(isFistTime, user) {
+//Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina
+function logOut(){
+  localStorage.removeItem("loggedInUser");
+  window.location.reload();
+}
+
+//Luego de logearse o registrarse, personaliza el index con datos del usuario, y quita los botones de iniciar sesión y registro, y muestra el de cerrar sesión
+function createWelcomeMessage(isFistTime) {
+
+  registerButton.classList.add("d-none");
+  loginButton.classList.add("d-none");
+  logOutButton.classList.remove("d-none");
+
+  const user = getUsersObj().find(u => u.id === parseInt(localStorage.getItem("loggedInUser")));
   const hero = document.getElementById("hero");
   const title = document.getElementById("mainTitle");
 
@@ -125,29 +202,13 @@ function createWelcomeMessage(isFistTime, user) {
   title.textContent += ` de ${user.username}`;
 }
 
-const accountOption = parseInt(
-  prompt(
-    "Bienvenido a MovieFlix.\nIngrese 1 para iniciar sesión, 2 para registrase"
-  )
-);
+//Busca cual fue el ultimo id utilizado en usuarios y devuelve el siguiente id a usar
+function calculateUserId(){
+  const users = getUsersObj();
+  return users.length === 0 ? 0 : users[users.length - 1].id + 1;
+}
 
-switch (accountOption) {
-  case 1:
-    const userLogin = login();
-    if (userLogin != false) {
-      createWelcomeMessage(false, userLogin);
-      alert("Se inicio session con éxito");
-    } else {
-      alert("Usuario no encontrado");
-    }
-    break;
-  case 2:
-    const userSignUp = signUpUser();
-    if (userSignUp != false) {
-      createWelcomeMessage(true, userSignUp);
-      alert("El registro se realizo con éxito");
-    }
-    break;
-  default:
-    alert("Opción no soportada");
+//Si el usuario ya estaba logeado se inicia sesión automáticamente
+if(localStorage.getItem("loggedInUser") !== null){
+  createWelcomeMessage(false);
 }
