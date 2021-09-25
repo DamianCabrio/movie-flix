@@ -1,14 +1,4 @@
-//Entidades
-
-//Variables (constantes, selectores, arrays)
-
-//Funciones
-
-//Eventos
-
-//Logica
-
-//Clases
+//Clases de usuarios y peliculas
 class User {
   constructor(id, name, surname, username, password) {
     this.id = id;
@@ -62,44 +52,43 @@ const pelicula4 = new Movie(
 );
 
 const peliculas = [pelicula1, pelicula2, pelicula3, pelicula4];
-const divPeliculas = document.getElementById("divPeliculas");
+const divPeliculas = $('#divPeliculas')
 //Se crean las cards de películas para mostrar en el index
 peliculas.forEach((pelicula) => {
-  const contenedor = document.createElement("div");
-  contenedor.classList.add("col");
-
-  contenedor.innerHTML = `<div class="card mb-4 rounded-3 shadow-sm">
-                                <div class="card">
-                                <img src="${pelicula.img}" class="card-img-top img-fluid m-auto" alt="${pelicula.title}"/>
-                                    <div class="card-body">
-                                        <h5 class="card-title">${pelicula.title} (${pelicula.year}) - ${pelicula.director}</h5>
-                                        <p class="card-text">
-                                        ${pelicula.description}
-                                        </p>
-                                        <a href="#" class="btn btn-primary">Ir a pelicula</a>
-                                    </div>
-                                </div>
-                            </div>`;
-  divPeliculas.appendChild(contenedor);
+  divPeliculas.append(`<div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                          <div class="card">
+                            <img src="${pelicula.img}" class="card-img-top img-fluid m-auto" alt="${pelicula.title}"/>
+                                <div class="card-body">
+                                    <h5 class="card-title">${pelicula.title} (${pelicula.year}) - ${pelicula.director}</h5>
+                                    <p class="card-text">
+                                    ${pelicula.description}
+                                  </p>
+                                <a href="#" class="btn btn-primary">Ir a pelicula</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>`
+                      );
 });
 
 //Se obtienen los elementos para poder operar, y se agregan eventos a algunos de ellos
-const registerModal = document.getElementById("modalRegister");
-const registerForm = document.getElementById("registerForm");
-registerForm.addEventListener("submit", signUpUser);
+const registerModal = $('#modalRegister').get(0);
+const registerForm = $('#registerForm');
+registerForm.submit(signUpUser)
 
-const loginModal = document.getElementById("modalLogIn");
-const loginForm = document.getElementById("loginForm");
-loginForm.addEventListener("submit", login);
+const loginModal = $('#modalLogIn').get(0);
+const loginForm = $('#loginForm');
+loginForm.submit(login)
 
-const errorAlertRegister = document.getElementById("errorAlertRegister");
-const errorAlertLogin = document.getElementById("errorAlertLogin");
-const successLoginAlert = document.getElementById("successLoginAlert");
+const errorAlertRegister = $('#errorAlertRegister');
+const errorAlertLogin = $('#errorAlertLogin');
+const successLoginAlert = $('#successLoginAlert');
 
-const loginButton = document.getElementById("logInButton");
-const registerButton = document.getElementById("registerButton");
-const logOutButton = document.getElementById("logOutButton");
-logOutButton.addEventListener("click", logOut);
+const loginButton = $('#logInButton');
+const registerButton = $('#registerButton');
+const logOutButton = $('#logOutButton');
+logOutButton.click(logOut);
 
 //Obtiene el objeto de usuarios de local storage
 function getUsersObj() {
@@ -110,13 +99,11 @@ function getUsersObj() {
 function signUpUser(e) {
   e.preventDefault();
 
-  const name = document.getElementById("nameRegister").value;
-  const surname = document.getElementById("surnameRegister").value;
-  const username = document.getElementById("userRegister").value;
-  const password = document.getElementById("passwordRegister").value;
-  const confirmedPassword = document.getElementById(
-    "confirmPasswordRegister"
-  ).value;
+  const name = $('#nameRegister').val();
+  const surname = $('#surnameRegister').val();
+  const username = $('#userRegister').val();
+  const password = $('#passwordRegister').val();
+  const confirmedPassword = $('#confirmPasswordRegister').val();
 
   if (!name || !surname || !username || !password || !confirmedPassword) {
     return false;
@@ -129,8 +116,6 @@ function signUpUser(e) {
   if (getUsersObj().find((e) => e.username === username) !== undefined) {
     showAlert(errorAlertRegister, "El nombre de usuario elegido ya existe");
     return false;
-  } else {
-    hideErrorAlert(errorAlertRegister);
   }
 
   if (password != confirmedPassword) {
@@ -142,9 +127,9 @@ function signUpUser(e) {
       "La contraseña debe tener por lo menos 8 caracteres"
     );
     return false;
-  } else {
-    hideErrorAlert(errorAlertRegister);
   }
+  
+  hideErrorAlert(errorAlertRegister);
 
   newUser = new User(calculateUserId(), name, surname, username, password);
 
@@ -157,7 +142,7 @@ function signUpUser(e) {
   showAlert(successLoginAlert, "Su cuenta se registro con éxito", 5000);
   createWelcomeMessage(true);
   bootstrap.Modal.getInstance(registerModal).hide();
-  registerForm.reset();
+  registerForm.trigger("reset");
   return newUser;
 }
 
@@ -175,8 +160,8 @@ function login(e) {
     hideErrorAlert(errorAlertLogin);
   }
 
-  const username = document.getElementById("userLogin").value.toLowerCase();
-  const password = document.getElementById("passwordLogin").value;
+  const username = $('#userLogin').val().toLowerCase();
+  const password = $('#passwordLogin').val();
 
   if (!username || !password) {
     return false;
@@ -192,16 +177,15 @@ function login(e) {
       "La contraseña o nombre de usuario son erróneos"
     );
     return false;
-  } else {
-    hideErrorAlert(errorAlertLogin);
   }
+  hideErrorAlert(errorAlertLogin);
 
   localStorage.setItem("loggedInUser", user.id);
 
   showAlert(successLoginAlert, "Se inicio la sesión con éxito", 5000);
   createWelcomeMessage(false);
   bootstrap.Modal.getInstance(loginModal).hide();
-  loginForm.reset();
+  loginForm.trigger("reset");
 
   return user;
 }
@@ -213,8 +197,8 @@ function logOut() {
 }
 
 function showAlert(alert, message, timer = null) {
-  alert.classList.remove("d-none");
-  alert.innerHTML = message;
+  alert.removeClass("d-none");
+  alert.html(message);
 
   if (timer != null) {
     setTimeout(function() {hideErrorAlert(alert)}, timer);
@@ -222,28 +206,30 @@ function showAlert(alert, message, timer = null) {
 }
 
 function hideErrorAlert(alert) {
-  alert.classList.add("d-none");
+  alert.addClass("d-none");
 }
 
 //Luego de logearse o registrarse, personaliza el index con datos del usuario, y quita los botones de iniciar sesión y registro, y muestra el de cerrar sesión
 function createWelcomeMessage(isFistTime) {
-  registerButton.classList.add("d-none");
-  loginButton.classList.add("d-none");
-  logOutButton.classList.remove("d-none");
+  loginButton.addClass('d-none');
+  registerButton.addClass('d-none');
+
+  logOutButton.removeClass("d-none");
 
   const user = getUsersObj().find(
     (u) => u.id === parseInt(localStorage.getItem("loggedInUser"))
   );
-  const hero = document.getElementById("hero");
-  const title = document.getElementById("mainTitle");
+  
+  const hero = $('#hero');
+  const title = $('#mainTitle');
 
-  const p = document.createElement("p");
-  p.innerHTML = isFistTime
+  hero.append("<p>"+ 
+  isFistTime
     ? `¡Bienvenido ${user.name} ${user.surname}!`
-    : `¡Bienvenido de nuevo ${user.name} ${user.surname}!`;
-  hero.appendChild(p);
+    : `¡Bienvenido de nuevo ${user.name} ${user.surname}!`
+  +"</p>");
 
-  title.textContent += ` de ${user.username}`;
+  title.text(title.text() + ` de ${user.username}`);
 }
 
 //Busca cual fue el ultimo id utilizado en usuarios y devuelve el siguiente id a usar
@@ -252,31 +238,30 @@ function calculateUserId() {
   return users.length === 0 ? 0 : users[users.length - 1].id + 1;
 }
 
+$(document).ready(function() {
 //Si el usuario ya estaba logeado se inicia sesión automáticamente
 if (localStorage.getItem("loggedInUser") !== null) {
   createWelcomeMessage(false);
 }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  "use strict";
+  (function () {
+    "use strict";
+    var forms = document.querySelectorAll(".needs-validation");
+    
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll(".needs-validation");
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener(
-      "submit",
-      function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      },
-      false
-    );
-  });
-})();
+});
