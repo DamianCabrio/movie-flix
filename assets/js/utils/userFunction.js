@@ -64,6 +64,7 @@ function signUpUser(e) {
 
   bootstrap.Modal.getInstance(registerModal).hide();
   registerForm.trigger("reset");
+  removeLoginButtons();
   return newUser;
 }
 
@@ -105,7 +106,7 @@ function login(e) {
 
   bootstrap.Modal.getInstance(loginModal).hide();
   loginForm.trigger("reset");
-
+  removeLoginButtons();
   return user;
 }
 
@@ -122,6 +123,18 @@ function loginToIndex(e){
   if(wasLogin !== false){
     window.location = "index.html";
   }
+}
+
+function toggleFavoriteMovie(id){
+  const idLoggedInUser = localStorage.getItem("loggedInUser")
+  if (localStorage.getItem("favoriteMovies") === null) {
+    localStorage.setItem("favoriteMovies", JSON.stringify([]));
+  }
+  
+  user = getUsersObj().find(
+    (user) => user.username === username && user.password === password
+  );
+
 }
 
 //Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina

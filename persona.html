@@ -45,11 +45,12 @@
                     </li>
                 </ul>
                 <form class="d-flex" action="busqueda.html">
-                    <input class="form-control me-2" type="search" placeholder="Ej: Fight Club..." aria-label="Search" name="query" />
+                    <input class="form-control me-2" type="search" placeholder="Ej: Fight Club..." aria-label="Search"
+                        name="query" />
                     <button class="btn btn-outline-success" type="submit">
-                      Buscar
+                        Buscar
                     </button>
-                  </form>
+                </form>
             </div>
         </div>
     </nav>
@@ -57,7 +58,7 @@
     <main class="container">
         <button class="btn btn-primary" id="goBackButton">Volver atrás</button>
         <div class="container mt-3 py-3 bg-light">
-            <div class="row" id="mainMovieDiv">
+            <div class="row" id="mainPersonDiv">
                 <div class="col-3">
                     <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg"
                         role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -78,114 +79,19 @@
                     <p class="placeholder">Lorem ipsum dolor sit amet, consectetur.</p>
                     <p class="placeholder">Lorem ipsum dolor sit amet, consectetur.</p>
                     <p class="placeholder">Lorem ipsum dolor sit amet, consectetur.</p>
-                    <p class="placeholder">Lorem ipsum dolor sit ame)</p>
+                    <p class="placeholder">Lorem ipsum dolor sit ame</p>
                 </div>
             </div>
-            <a class='like-button w-100 mt-2 placeholder' id="favoriteButton">
-                <span class='like-icon'>
-                    <div class='heart-animation-1'></div>
-                    <div class='heart-animation-2'></div>
-                </span>
-                Agregar a favoritos
-            </a>
             <div class="row mt-3">
-                <div class="accordion accordion-flush" id="movieMultimedia">
-                    <div class="accordion-item" id="trailer">
+                <div class="accordion accordion-flush" id="creditsParent">
+                    <div class="accordion-item" id="creditosDiv">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed placeholder" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne" id="botonTrailer">
-                                Trailer
+                                aria-controls="flush-collapseOne">
+                                Créditos
                             </button>
                         </h2>
-                    </div>
-                    <div class="accordion-item" id="cast">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed placeholder" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                                Cast
-                            </button>
-                        </h2>
-                    </div>
-                    <div class="accordion-item" id="crew">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                            <button class="accordion-button collapsed placeholder" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
-                                Crew
-                            </button>
-                        </h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container mt-3" id="divPadrePeliculasRelacionadas">
-                <h2 class="text-center">Películas relacionadas</h2>
-                <br /><br />
-                <div class="row row-cols-1 row-cols-md-3 g-4" id="divPeliculasRelacionadas">
-                    <div class="card" aria-hidden="true">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#868e96"></rect>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow">
-                                <span class="placeholder col-7"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-6"></span>
-                                <span class="placeholder col-8"></span>
-                            </p>
-                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-                        </div>
-                    </div>
-                    <div class="card" aria-hidden="true">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#868e96"></rect>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow">
-                                <span class="placeholder col-7"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-6"></span>
-                                <span class="placeholder col-8"></span>
-                            </p>
-                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-                        </div>
-                    </div>
-                    <div class="card" aria-hidden="true">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#868e96"></rect>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow">
-                                <span class="placeholder col-7"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-4"></span>
-                                <span class="placeholder col-6"></span>
-                                <span class="placeholder col-8"></span>
-                            </p>
-                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -284,12 +190,12 @@
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="./assets/js/classes/Movie.js"></script>
+    <script src="./assets/js/classes/Person.js"></script>
     <script src="./assets/js/classes/User.js"></script>
     <script src="./assets/js/utils/globalConsts.js"></script>
     <script src="./assets/js/utils/generalFunctions.js"></script>
     <script src="./assets/js/utils/userFunction.js"></script>
-    <script src="./assets/js/pelicula.js"></script>
+    <script src="./assets/js/persona.js"></script>
 </body>
 
 </html>
