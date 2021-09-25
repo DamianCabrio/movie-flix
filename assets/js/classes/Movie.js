@@ -100,7 +100,7 @@ class Movie {
             ? "-"
             : person.character
         }</td>
-        <td><a class="btn btn-primary" href="/persona.html?id=${
+        <td><a class="btn btn-primary" href="persona.html?id=${
           person.id
         }">Perfil</a></td>
       </tr>
@@ -132,7 +132,7 @@ class Movie {
             ? "-"
             : person.department
         }</td>
-        <td><a class="btn btn-primary" href="/persona.html?id=${
+        <td><a class="btn btn-primary" href="persona.html?id=${
           person.id
         }">Perfil</a></td>
       </tr>
