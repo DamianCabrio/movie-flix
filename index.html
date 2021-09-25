@@ -49,6 +49,7 @@
   </nav>
 
   <main class="container">
+    <div class="alert alert-success d-none" role="alert" id="successLoginAlert"></div>
     <div class="bg-light p-5 rounded" id="hero">
       <h1 id="mainTitle">MovieFlix</h1>
       <p class="lead">Tu lugar para películas.</p>
@@ -72,14 +73,17 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form id="loginForm">
+          <form id="loginForm" class="needs-validation" novalidate>
+            <div class="alert alert-danger d-none" role="alert" id="errorAlertLogin"></div>
             <div class="mb-3">
               <label for="userLogin" class="form-label">Usuario</label>
               <input type="text" class="form-control" id="userLogin" required />
+              <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
             </div>
             <div class="mb-3">
               <label for="passwordLogin" class="form-label">Contraseña</label>
               <input type="password" class="form-control" id="passwordLogin" required />
+              <div class="invalid-feedback">Por favor ingrese una contraseña</div>
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="rememberMe" />
@@ -109,28 +113,34 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form id="registerForm">
+          <form id="registerForm" class="needs-validation" novalidate>
+            <div class="alert alert-danger d-none" role="alert" id="errorAlertRegister"></div>
             <div class="mb-3">
               <label for="nameRegister" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="nameRegister" required />
+              <div class="invalid-feedback">Por favor ingrese un nombre</div>
             </div>
             <div class="mb-3">
               <label for="surnameRegister" class="form-label">Apellido</label>
               <input type="text" class="form-control" id="surnameRegister" required />
+              <div class="invalid-feedback">Por favor ingrese un apellido</div>
             </div>
             <div class="mb-3">
               <label for="userRegister" class="form-label">Usuario</label>
               <input type="text" class="form-control" id="userRegister" required />
+              <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
             </div>
             <div class="mb-3">
               <label for="passwordRegister" class="form-label">Contraseña</label>
               <input type="password" class="form-control" id="passwordRegister" required />
+              <div class="invalid-feedback">Por favor ingrese una contraseña</div>
             </div>
             <div class="mb-3">
               <label for="confirmPasswordRegister" class="form-label">Confirmar contraseña</label>
               <input type="password" class="form-control" id="confirmPasswordRegister" required />
+              <div class="invalid-feedback">Por favor confirme su contraseña</div>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="submit" class="btn btn-primary text-center">Enviar</button>
           </form>
         </div>
         <div class="modal-footer">

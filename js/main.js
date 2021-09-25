@@ -10,7 +10,7 @@
 
 //Clases
 class User {
-  constructor(id,name, surname, username, password) {
+  constructor(id, name, surname, username, password) {
     this.id = id;
     this.name = name;
     this.surname = surname;
@@ -86,16 +86,20 @@ peliculas.forEach((pelicula) => {
 //Se obtienen los elementos para poder operar, y se agregan eventos a algunos de ellos
 const registerModal = document.getElementById("modalRegister");
 const registerForm = document.getElementById("registerForm");
-registerForm.addEventListener("submit",signUpUser);
+registerForm.addEventListener("submit", signUpUser);
 
 const loginModal = document.getElementById("modalLogIn");
 const loginForm = document.getElementById("loginForm");
-loginForm.addEventListener("submit",login);
+loginForm.addEventListener("submit", login);
+
+const errorAlertRegister = document.getElementById("errorAlertRegister");
+const errorAlertLogin = document.getElementById("errorAlertLogin");
+const successLoginAlert = document.getElementById("successLoginAlert");
 
 const loginButton = document.getElementById("logInButton");
 const registerButton = document.getElementById("registerButton");
 const logOutButton = document.getElementById("logOutButton");
-logOutButton.addEventListener("click",logOut);
+logOutButton.addEventListener("click", logOut);
 
 //Obtiene el objeto de usuarios de local storage
 function getUsersObj() {
@@ -106,31 +110,43 @@ function getUsersObj() {
 function signUpUser(e) {
   e.preventDefault();
 
+  const name = document.getElementById("nameRegister").value;
+  const surname = document.getElementById("surnameRegister").value;
+  const username = document.getElementById("userRegister").value;
+  const password = document.getElementById("passwordRegister").value;
+  const confirmedPassword = document.getElementById(
+    "confirmPasswordRegister"
+  ).value;
+
+  if (!name || !surname || !username || !password || !confirmedPassword) {
+    return false;
+  }
+
   if (localStorage.getItem("users") === null) {
     localStorage.setItem("users", JSON.stringify([]));
   }
 
-  const name = document.getElementById("nameRegister").value;
-  const surname = document.getElementById("surnameRegister").value;
-  const username = document.getElementById("userRegister").value;
-
-  if(getUsersObj().find(e => e.username === username) !== undefined){
-    console.log("Error: El nombre de usuario ya existe");
+  if (getUsersObj().find((e) => e.username === username) !== undefined) {
+    showAlert(errorAlertRegister, "El nombre de usuario elegido ya existe");
     return false;
+  } else {
+    hideErrorAlert(errorAlertRegister);
   }
 
-  const password = document.getElementById("passwordRegister").value;
-  const confirmedPassword = document.getElementById("confirmPasswordRegister").value;
-
-  if(password != confirmedPassword ){
-    console.log("Error: Las contraseñas ingresadas son distintas");
+  if (password != confirmedPassword) {
+    showAlert(errorAlertRegister, "Las contraseñas ingresadas son distintas");
     return false;
-  }else if(password.length < 8){
-    console.log("Error: La contraseña debe tener por lo menos 8 caracteres");
+  } else if (password.length < 8) {
+    showAlert(
+      errorAlertRegister,
+      "La contraseña debe tener por lo menos 8 caracteres"
+    );
     return false;
+  } else {
+    hideErrorAlert(errorAlertRegister);
   }
 
-  newUser = new User(calculateUserId(),name, surname, username, password);
+  newUser = new User(calculateUserId(), name, surname, username, password);
 
   const usersObj = JSON.parse(localStorage.getItem("users"));
   usersObj.push(newUser);
@@ -138,7 +154,7 @@ function signUpUser(e) {
 
   localStorage.setItem("loggedInUser", newUser.id);
 
-  console.log("Se creo el usuario con éxito");
+  showAlert(successLoginAlert, "Su cuenta se registro con éxito", 5000);
   createWelcomeMessage(true);
   bootstrap.Modal.getInstance(registerModal).hide();
   registerForm.reset();
@@ -150,25 +166,39 @@ function login(e) {
   e.preventDefault();
 
   if (localStorage.getItem("users") === null) {
-    console.log("Error: No existe el usuario");
+    showAlert(
+      errorAlertLogin,
+      "La contraseña o nombre de usuario son erróneos"
+    );
     return false;
+  } else {
+    hideErrorAlert(errorAlertLogin);
   }
 
   const username = document.getElementById("userLogin").value.toLowerCase();
   const password = document.getElementById("passwordLogin").value;
+
+  if (!username || !password) {
+    return false;
+  }
 
   user = getUsersObj().find(
     (user) => user.username === username && user.password === password
   );
 
   if (user == undefined) {
-    console.log("Error: No existe el usuario");
+    showAlert(
+      errorAlertLogin,
+      "La contraseña o nombre de usuario son erróneos"
+    );
     return false;
+  } else {
+    hideErrorAlert(errorAlertLogin);
   }
 
   localStorage.setItem("loggedInUser", user.id);
 
-  console.log("Se inicio la sesión con exito");
+  showAlert(successLoginAlert, "Se inicio la sesión con éxito", 5000);
   createWelcomeMessage(false);
   bootstrap.Modal.getInstance(loginModal).hide();
   loginForm.reset();
@@ -177,19 +207,33 @@ function login(e) {
 }
 
 //Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina
-function logOut(){
+function logOut() {
   localStorage.removeItem("loggedInUser");
   window.location.reload();
 }
 
+function showAlert(alert, message, timer = null) {
+  alert.classList.remove("d-none");
+  alert.innerHTML = message;
+
+  if (timer != null) {
+    setTimeout(function() {hideErrorAlert(alert)}, timer);
+  }
+}
+
+function hideErrorAlert(alert) {
+  alert.classList.add("d-none");
+}
+
 //Luego de logearse o registrarse, personaliza el index con datos del usuario, y quita los botones de iniciar sesión y registro, y muestra el de cerrar sesión
 function createWelcomeMessage(isFistTime) {
-
   registerButton.classList.add("d-none");
   loginButton.classList.add("d-none");
   logOutButton.classList.remove("d-none");
 
-  const user = getUsersObj().find(u => u.id === parseInt(localStorage.getItem("loggedInUser")));
+  const user = getUsersObj().find(
+    (u) => u.id === parseInt(localStorage.getItem("loggedInUser"))
+  );
   const hero = document.getElementById("hero");
   const title = document.getElementById("mainTitle");
 
@@ -203,12 +247,36 @@ function createWelcomeMessage(isFistTime) {
 }
 
 //Busca cual fue el ultimo id utilizado en usuarios y devuelve el siguiente id a usar
-function calculateUserId(){
+function calculateUserId() {
   const users = getUsersObj();
   return users.length === 0 ? 0 : users[users.length - 1].id + 1;
 }
 
 //Si el usuario ya estaba logeado se inicia sesión automáticamente
-if(localStorage.getItem("loggedInUser") !== null){
+if (localStorage.getItem("loggedInUser") !== null) {
   createWelcomeMessage(false);
 }
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  "use strict";
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll(".needs-validation");
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();
