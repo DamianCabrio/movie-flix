@@ -24,6 +24,12 @@ Las funcionalidades del sitio son:
 
 ![Búsqueda](https://i.imgur.com/5fCnxOF.png) 
 
+Sitio web: Próximamente
+
+Link a la documentacion de la API: [https://developers.themoviedb.org/3/getting-started/introduction](https://developers.themoviedb.org/3/getting-started/introduction)
+
+IMPORTANTE: Para correr la aplicación de manera local, se debe contar con una key de la API de TMDB ([Link](https://www.themoviedb.org/settings/api)). Una vez se obtenga la key, se debe ingresar en el archivo /assets/js/utils/globalConsts.js.
+
 NOTA: La información que se muestra en el sitio es la provista por la API de TMDB, si esta API no tiene una información especifica de una película o persona, esta no se va a mostrar, por ejemplo, si la película en particular no tiene un tráiler, la pestaña de tráileres no se va a mostrar.
 
-Sitio web: [https://damiancabrio.github.io/MovieFlix//](https://damiancabrio.github.io/MovieFlix/) 
+NOTA 2: En la vista de películas puede que salga algún error en la consola, estos son externos al sitio y tienen que ver con el video de YouTube
