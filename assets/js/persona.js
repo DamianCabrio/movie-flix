@@ -17,7 +17,6 @@ $(document).ready(function () {
       if (state === "success") {
         //Se crea un objeto persona y se muestra sus datos principales
         $(".placeholder").removeClass("placeholder");
-        document.title = personObj.name;
 
         const personObj = new Person(
           idPersona,
@@ -31,7 +30,8 @@ $(document).ready(function () {
           response.profile_path,
           response.movie_credits
         );
-
+        document.title = personObj.name;
+        
         mainPersonDiv.html("");
         mainPersonDiv.append(`
           <div class="col-12 col-md-3">
