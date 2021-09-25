@@ -72,9 +72,10 @@ class Person {
                     : credit.character
                 }</td>
                 <td>${
-                  credit.release_date != null
-                    ? new Date(credit.release_date).toLocaleDateString("es-Ar")
-                    : "-"
+                  credit.release_date !== undefined &&
+                  credit.release_date.length !== 0 ?
+                  new Date(credit.release_date).toLocaleDateString("es-AR") :
+                  "-"
                 }</td>
                 <td><a class="btn btn-primary" href="pelicula.html?id=${
                   credit.id
