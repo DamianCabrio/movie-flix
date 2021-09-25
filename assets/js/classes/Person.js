@@ -76,7 +76,7 @@ class Person {
                     ? new Date(credit.release_date).toLocaleDateString("es-Ar")
                     : "-"
                 }</td>
-                <td><a class="btn btn-primary" href="/pelicula.html?id=${
+                <td><a class="btn btn-primary" href="pelicula.html?id=${
                   credit.id
                 }">Mas info</a></td>
               </tr>
