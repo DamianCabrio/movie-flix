@@ -34,7 +34,7 @@ class Movie {
     this.posterUrl =
       posterUrl != null
         ? "https://image.tmdb.org/t/p/w500" + posterUrl
-        : "/assets/img/default-pic-movie.png";
+        : "./assets/img/default-pic-movie.png";
     this.description = description;
     this.budget = budget.toLocaleString("es-AR");
     this.revenue = revenue.toLocaleString("es-AR");
@@ -87,7 +87,7 @@ class Movie {
             ? `<img style="width: 50px" src="${
                 "https://image.tmdb.org/t/p/w500" + person.profile_path
               }">`
-            : '<img style="width: 50px" src="/assets/img/default-pic.jpg">';
+            : '<img style="width: 50px" src="./assets/img/default-pic.jpg">';
         castRows += ` 
         <tr>
         <th scope="row">${i + 1}</th>
@@ -118,7 +118,7 @@ class Movie {
             ? `<img style="width: 50px" src="${
                 "https://image.tmdb.org/t/p/w500" + person.profile_path
               }">`
-            : '<img style="width: 50px" src="/assets/img/default-pic.jpg">';
+            : '<img style="width: 50px" src="./assets/img/default-pic.jpg">';
         crewRows += ` 
         <tr>
         <th scope="row">${i + 1}</th>

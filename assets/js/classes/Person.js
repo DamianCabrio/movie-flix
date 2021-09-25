@@ -39,7 +39,7 @@ class Person {
     this.img =
       img != null
         ? "https://image.tmdb.org/t/p/w500" + img
-        : "/assets/img/default-pic.jpg";
+        : "./assets/img/default-pic.jpg";
     this.credits = credits;
   }
 
@@ -56,7 +56,7 @@ class Person {
               ? `<img style="width: 50px" src="${
                   "https://image.tmdb.org/t/p/w500" + credit.poster_path
                 }">`
-              : '<img style="width: 50px" src="/assets/img/default-pic-movie.png">';
+              : '<img style="width: 50px" src="./assets/img/default-pic-movie.png">';
           creditRows += ` 
                 <tr>
                 <th scope="row">${cantCreditos}</th>

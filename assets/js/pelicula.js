@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   const favoriteButton = $("a.like-button");
 
-  if(hasFavoriteMovie(idMovie)){
+  if(localStorage.getItem("loggedInUser") !== null && hasFavoriteMovie(idMovie)){
     favoriteButton.addClass("liked");
   }
 

@@ -125,7 +125,7 @@ function loginToIndex(e) {
   }
 }
 
-function addFavoriteMovie(id){
+function addFavoriteMovie(id) {
   const idLoggedInUser = localStorage.getItem("loggedInUser");
 
   let arrayFavoriteMovies = [];
@@ -133,43 +133,57 @@ function addFavoriteMovie(id){
     arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
   }
 
-  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find(
+    (e) => e.iduser === idLoggedInUser
+  );
 
-  if(arrayFavoriteMoviesUser === undefined){
-    arrayFavoriteMoviesUser = {iduser: idLoggedInUser, movies: [id]};
+  if (arrayFavoriteMoviesUser === undefined) {
+    arrayFavoriteMoviesUser = { iduser: idLoggedInUser, movies: [id] };
     arrayFavoriteMovies.push(arrayFavoriteMoviesUser);
-  }else{
+  } else {
     arrayFavoriteMoviesUser.movies.push(id);
-    arrayFavoriteMovies.map((e) => e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e);
+    arrayFavoriteMovies.map((e) =>
+      e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e
+    );
   }
 
-  localStorage.setItem("favoriteMovies",JSON.stringify(arrayFavoriteMovies));
-
+  localStorage.setItem("favoriteMovies", JSON.stringify(arrayFavoriteMovies));
 }
 
-function removeFavoriteMovie(id){
+function removeFavoriteMovie(id) {
   const idLoggedInUser = localStorage.getItem("loggedInUser");
   let arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
 
-  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find(
+    (e) => e.iduser === idLoggedInUser
+  );
 
   const index = arrayFavoriteMoviesUser.movies.indexOf(id);
-  arrayFavoriteMoviesUser.movies.splice(index,1);
+  arrayFavoriteMoviesUser.movies.splice(index, 1);
 
-  arrayFavoriteMovies.map((e) => e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e);
-  localStorage.setItem("favoriteMovies",JSON.stringify(arrayFavoriteMovies));
+  arrayFavoriteMovies.map((e) =>
+    e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e
+  );
+  localStorage.setItem("favoriteMovies", JSON.stringify(arrayFavoriteMovies));
 }
 
-function hasFavoriteMovie(id){
+function hasFavoriteMovie(id) {
   const idLoggedInUser = localStorage.getItem("loggedInUser");
-  const arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
-  const arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+  const arrayFavoriteMovies = JSON.parse(
+    localStorage.getItem("favoriteMovies")
+  );
 
-  if(arrayFavoriteMoviesUser !== undefined){
-    return arrayFavoriteMoviesUser.movies.includes(id);
-  }else{
+  if (arrayFavoriteMovies !== null) {
+    const arrayFavoriteMoviesUser = arrayFavoriteMovies.find(
+      (e) => e.iduser === idLoggedInUser
+    );
+    if (arrayFavoriteMoviesUser !== undefined) {
+      return arrayFavoriteMoviesUser.movies.includes(id);
+    }
+
     return false;
   }
+  return false
 }
 
 //Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina
@@ -190,8 +204,10 @@ function removeLoginButtons() {
 
   logOutButton.removeClass("d-none");
 
-  loggedUser = getUsersObj().find(e => e.id = localStorage.getItem("loggedInUser"));
-  $("#logOutButton a").text("Cerrar Sesión ("+ loggedUser.username + ")");
+  loggedUser = getUsersObj().find(
+    (e) => (e.id = localStorage.getItem("loggedInUser"))
+  );
+  $("#logOutButton a").text("Cerrar Sesión (" + loggedUser.username + ")");
 }
 
 //Si el usuario ya estaba logeado se inicia sesión automáticamente
