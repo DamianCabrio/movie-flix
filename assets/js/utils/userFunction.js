@@ -118,23 +118,22 @@ function singUpUserToIndex(e) {
   }
 }
 
-function loginToIndex(e){
+function loginToIndex(e) {
   const wasLogin = login(e);
-  if(wasLogin !== false){
+  if (wasLogin !== false) {
     window.location = "index.html";
   }
 }
 
-function toggleFavoriteMovie(id){
-  const idLoggedInUser = localStorage.getItem("loggedInUser")
+function toggleFavoriteMovie(id) {
+  const idLoggedInUser = localStorage.getItem("loggedInUser");
   if (localStorage.getItem("favoriteMovies") === null) {
     localStorage.setItem("favoriteMovies", JSON.stringify([]));
   }
-  
+
   user = getUsersObj().find(
     (user) => user.username === username && user.password === password
   );
-
 }
 
 //Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina

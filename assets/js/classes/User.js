@@ -7,7 +7,7 @@ class User {
     this.password = password;
   }
 
-  getCurrentUser(){
-    localStorage.getItem("loggedInUser")
+  getCurrentUser() {
+    localStorage.getItem("loggedInUser");
   }
 }

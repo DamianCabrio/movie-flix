@@ -32,7 +32,7 @@ $(document).ready(function () {
 
         mainPersonDiv.html("");
         mainPersonDiv.append(`
-          <div class="col-3">
+          <div class="col-12 col-md-3">
               <img src="${personObj.img}" class="img-fluid" alt="${
           personObj.name
         }">
@@ -66,8 +66,8 @@ $(document).ready(function () {
           creditsDiv.append(`
           <div id="flush-collapseOne" class="accordion-collapse collapse"
               aria-labelledby="flush-headingOne" data-bs-parent="#creditsParent">
-              <div class="accordion-body">
-                <table class="table table-striped table-hover table-responsive">
+              <div class="accordion-body table-responsive">
+                <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                       <th scope="col">#</th>

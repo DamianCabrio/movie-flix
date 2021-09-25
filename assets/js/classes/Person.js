@@ -48,11 +48,11 @@ class Person {
       let creditRows = "";
       let cantCreditos = 0;
 
-      Object.keys(this.credits).forEach(key => {
-          this.credits[key].forEach((credit, j) => {
-            cantCreditos++;
+      Object.keys(this.credits).forEach((key) => {
+        this.credits[key].forEach((credit, j) => {
+          cantCreditos++;
           const movieImg =
-          credit.poster_path != null
+            credit.poster_path != null
               ? `<img style="width: 50px" src="${
                   "https://image.tmdb.org/t/p/w500" + credit.poster_path
                 }">`
@@ -63,15 +63,25 @@ class Person {
                 <td>${movieImg}</td>
                 <td>${credit.title}</td>
                 <td>${key.charAt(0).toUpperCase() + key.slice(1)}</td>
-                <td>${key == "crew" ? credit.department : credit.character == "" || credit.character == null ? "No disponible" : credit.character}</td>
-                <td>${credit.release_date != null ? new Date(credit.release_date).toLocaleDateString("es-Ar") : "-"}</td>
+                <td>${
+                  key == "crew"
+                    ? credit.department
+                    : credit.character == "" || credit.character == null
+                    ? "No disponible"
+                    : credit.character
+                }</td>
+                <td>${
+                  credit.release_date != null
+                    ? new Date(credit.release_date).toLocaleDateString("es-Ar")
+                    : "-"
+                }</td>
                 <td><a class="btn btn-primary" href="/pelicula.html?id=${
-                    credit.id
+                  credit.id
                 }">Mas info</a></td>
               </tr>
               `;
-        })
-      })
+        });
+      });
       return creditRows;
     }
     return false;

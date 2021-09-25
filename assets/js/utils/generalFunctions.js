@@ -34,13 +34,19 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function displayMovieCard(movie, divPeliculas) {
   divPeliculas.append(`<div class="col">
 <div class="card h-100 mb-4 rounded-3 shadow-sm">
-  <img src="${movie.posterUrl}" class="card-img-top img-fluid m-auto" alt="Poster de ${movie.title} ${movie.year != null ? `(${movie.year})` : ""}"/>
+  <img src="${
+    movie.posterUrl
+  }" class="card-img-top img-fluid m-auto" alt="Poster de ${movie.title} ${
+    movie.year != null ? `(${movie.year})` : ""
+  }"/>
       <div class="card-body">
           <h5 class="card-title">${movie.title} (${movie.year})</h5>
           <p class="card-text">
           ${movie.shortDescription}
         </p>
-      <a href="pelicula.html?id=${movie.id}" class="btn btn-primary">Ir a pelicula</a>
+      <a href="pelicula.html?id=${
+        movie.id
+      }" class="btn btn-primary">Ir a pelicula</a>
     </div>
   </div>
 </div>`);

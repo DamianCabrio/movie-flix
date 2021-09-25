@@ -1,9 +1,7 @@
 $(document).ready(function () {
-
   const successLoginAlert = $("#successLoginAlert");
-  const errorAlert = $('#errorLoginAlert');
+  const errorAlert = $("#errorLoginAlert");
   const divPeliculas = $("#divPeliculas");
-
 
   registerForm.submit(singUpUserIndex);
 
@@ -18,19 +16,27 @@ $(document).ready(function () {
         newMovieObj = new Movie(
           movie.id,
           movie.title,
-          movie.release_date !== undefined && movie.release_date.length !== 0 ? movie.release_date : null,
+          movie.release_date !== undefined && movie.release_date.length !== 0
+            ? movie.release_date
+            : null,
           movie.poster_path,
           movie.overview,
           movie.vote_average
         );
         movies.push(newMovieObj);
-        displayMovieCard(newMovieObj,divPeliculas);
+        displayMovieCard(newMovieObj, divPeliculas);
       });
-    }else{
-      showAlert(errorAlert, "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego");
+    } else {
+      showAlert(
+        errorAlert,
+        "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego"
+      );
     }
   }).fail(function () {
-    showAlert(errorAlert, "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego");
+    showAlert(
+      errorAlert,
+      "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego"
+    );
   });
   function singUpUserIndex(e) {
     wasUserSignup = signUpUser(e);
@@ -68,8 +74,8 @@ $(document).ready(function () {
     title.text(title.text() + ` de ${user.username}`);
   }
 
-    //Si el usuario ya estaba logeado se inicia sesión automáticamente
-    if (localStorage.getItem("loggedInUser") !== null) {
-      createWelcomeMessage(false);
-    }
+  //Si el usuario ya estaba logeado se inicia sesión automáticamente
+  if (localStorage.getItem("loggedInUser") !== null) {
+    createWelcomeMessage(false);
+  }
 });

@@ -22,7 +22,7 @@ $(document).ready(function () {
   } else {
     favoriteButton.on("click", function (e) {
       $(this).toggleClass("liked");
-      toggleFavoriteMovie(idMovie)
+      toggleFavoriteMovie(idMovie);
     });
   }
 
@@ -33,7 +33,10 @@ $(document).ready(function () {
         const movieOjb = new Movie(
           idMovie,
           response.title,
-          response.release_date !== undefined && response.release_date.length !== 0 ? response.release_date : null,
+          response.release_date !== undefined &&
+          response.release_date.length !== 0
+            ? response.release_date
+            : null,
           response.poster_path,
           response.overview,
           response.vote_average,
@@ -55,7 +58,7 @@ $(document).ready(function () {
         movieBg.attr("src", movieOjb.backdropImg);
         mainMovieDiv.html("");
         mainMovieDiv.append(`
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <img src="${movieOjb.posterUrl}" class="img-fluid" alt="${
           movieOjb.title
         } (${movieOjb.year})">
@@ -72,8 +75,16 @@ $(document).ready(function () {
                         : ""
                     }
                     <p>${movieOjb.description}</p>
-                    ${movieOjb.releaseDate != null ? `<p>Fecha de lanzamiento: ${movieOjb.releaseDate}</p>` : "" }
-                    ${movieOjb.geners != null ? `<p>Generos: ${movieOjb.geners}</p>` : "" }
+                    ${
+                      movieOjb.releaseDate != null
+                        ? `<p>Fecha de lanzamiento: ${movieOjb.releaseDate}</p>`
+                        : ""
+                    }
+                    ${
+                      movieOjb.geners != null
+                        ? `<p>Generos: ${movieOjb.geners}</p>`
+                        : ""
+                    }
                     <p>Presupuesto: ${
                       parseFloat(movieOjb.budget) > 0
                         ? `$${movieOjb.budget}`
@@ -118,8 +129,8 @@ $(document).ready(function () {
           castDiv.append(`
           <div id="flush-collapseTwo" class="accordion-collapse collapse"
           aria-labelledby="flush-headingTwo" data-bs-parent="#movieMultimedia">
-            <div class="accordion-body">
-              <table class="table table-striped table-hover table-responsive">
+            <div class="accordion-body table-responsive">
+              <table class="table table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -146,8 +157,8 @@ $(document).ready(function () {
           crewDiv.append(`
             <div id="flush-collapseThree" class="accordion-collapse collapse"
                 aria-labelledby="flush-headingThree" data-bs-parent="#movieMultimedia">
-                <div class="accordion-body">
-                  <table class="table table-striped table-hover table-responsive">
+                <div class="accordion-body table-responsive">
+                  <table class="table table-striped table-hover">
                   <thead>
                       <tr>
                         <th scope="col">#</th>
