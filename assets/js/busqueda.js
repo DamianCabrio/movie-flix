@@ -62,7 +62,7 @@ $(document).ready(function () {
           "Ups, parece que el cine esta vació. Por favor, vuelva a intentar"
         );
         divPeliculas.html("");
-        divPeliculas.append("<img class='m-auto img-fluid' src='../../assets/img/empty-cinema.jpg'>");
+        divPeliculas.append("<img class='m-auto img-fluid' src='./assets/img/empty-cinema.jpg'>");
       }
     } else {
       //Si algo falla, se vuelve al index
