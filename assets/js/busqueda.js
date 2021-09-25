@@ -13,7 +13,6 @@ $(document).ready(function () {
   let movies = [];
   $.get(searchUrl(query,page), function (response, state) {
     if (state === "success") { 
-      console.log(response)
       let firstLoad = true;
       $('#luckmoshy').luckmoshyPagination({
         totalPages: response.total_pages,
@@ -44,7 +43,6 @@ $(document).ready(function () {
           );
           movies.push(newMovieObj);
           displayMovieCard(newMovieObj,divPeliculas);
-          console.log(newMovieObj.releaseDate, newMovieObj.title);
         });
     }else{
       window.location = "index.html";
