@@ -125,21 +125,57 @@ function loginToIndex(e) {
   }
 }
 
-function toggleFavoriteMovie(id) {
+function addFavoriteMovie(id){
   const idLoggedInUser = localStorage.getItem("loggedInUser");
-  if (localStorage.getItem("favoriteMovies") === null) {
-    localStorage.setItem("favoriteMovies", JSON.stringify([]));
+
+  let arrayFavoriteMovies = [];
+  if (localStorage.getItem("favoriteMovies") !== null) {
+    arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
   }
 
-  user = getUsersObj().find(
-    (user) => user.username === username && user.password === password
-  );
+  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+
+  if(arrayFavoriteMoviesUser === undefined){
+    arrayFavoriteMoviesUser = {iduser: idLoggedInUser, movies: [id]};
+    arrayFavoriteMovies.push(arrayFavoriteMoviesUser);
+  }else{
+    arrayFavoriteMoviesUser.movies.push(id);
+    arrayFavoriteMovies.map((e) => e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e);
+  }
+
+  localStorage.setItem("favoriteMovies",JSON.stringify(arrayFavoriteMovies));
+
+}
+
+function removeFavoriteMovie(id){
+  const idLoggedInUser = localStorage.getItem("loggedInUser");
+  let arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
+
+  let arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+
+  const index = arrayFavoriteMoviesUser.movies.indexOf(id);
+  arrayFavoriteMoviesUser.movies.splice(index,1);
+
+  arrayFavoriteMovies.map((e) => e.iduser == idLoggedInUser ? arrayFavoriteMoviesUser : e);
+  localStorage.setItem("favoriteMovies",JSON.stringify(arrayFavoriteMovies));
+}
+
+function hasFavoriteMovie(id){
+  const idLoggedInUser = localStorage.getItem("loggedInUser");
+  const arrayFavoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies"));
+  const arrayFavoriteMoviesUser = arrayFavoriteMovies.find((e) => e.iduser === idLoggedInUser);
+
+  if(arrayFavoriteMoviesUser !== undefined){
+    return arrayFavoriteMoviesUser.movies.includes(id);
+  }else{
+    return false;
+  }
 }
 
 //Cierra sesión eliminando el id del usuario logeado actual, y recarga la pagina
 function logOut() {
   localStorage.removeItem("loggedInUser");
-  window.location = "/";
+  window.location = "index.html";
 }
 
 //Busca cual fue el ultimo id utilizado en usuarios y devuelve el siguiente id a usar
@@ -153,6 +189,9 @@ function removeLoginButtons() {
   registerButton.addClass("d-none");
 
   logOutButton.removeClass("d-none");
+
+  loggedUser = getUsersObj().find(e => e.id = localStorage.getItem("loggedInUser"));
+  $("#logOutButton a").text("Cerrar Sesión ("+ loggedUser.username + ")");
 }
 
 //Si el usuario ya estaba logeado se inicia sesión automáticamente

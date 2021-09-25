@@ -17,12 +17,21 @@ $(document).ready(function () {
   const idMovie = getUrlParameter("id");
 
   const favoriteButton = $("a.like-button");
+
+  if(hasFavoriteMovie(idMovie)){
+    favoriteButton.addClass("liked");
+  }
+
   if (localStorage.getItem("loggedInUser") === null) {
     favoriteButton.addClass("d-none");
   } else {
     favoriteButton.on("click", function (e) {
       $(this).toggleClass("liked");
-      toggleFavoriteMovie(idMovie);
+      if($(this).hasClass("liked")){
+        addFavoriteMovie(idMovie);
+      }else{
+        removeFavoriteMovie(idMovie);
+      }
     });
   }
 
