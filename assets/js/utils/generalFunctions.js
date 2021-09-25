@@ -1,3 +1,4 @@
+//Muestra un alert, con un mensaje dado, y con un tiempo de muestra dado (opcional)
 function showAlert(alert, message, timer = null) {
   alert.fadeIn(200);
   alert.html(message);
@@ -9,10 +10,12 @@ function showAlert(alert, message, timer = null) {
   }
 }
 
+//Oculta el alert con un fade
 function hideAlert(alert) {
   alert.fadeOut(200);
 }
 
+//Devuelve una variable dada por URL, según el parámetro que se envié
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
     sURLVariables = sPageURL.split("&"),
@@ -31,6 +34,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
   return false;
 };
 
+//Muestra una película en forma de card
 function displayMovieCard(movie, divPeliculas) {
   divPeliculas.append(`<div class="col">
 <div class="card h-100 mb-4 rounded-3 shadow-sm">

@@ -43,6 +43,7 @@ class Person {
     this.credits = credits;
   }
 
+  //Devuelve los créditos de una persona, si estos existen, y los separa por tipo (crew o cast)
   getCredits() {
     if (this.credits !== []) {
       let creditRows = "";

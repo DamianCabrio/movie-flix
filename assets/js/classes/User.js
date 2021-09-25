@@ -6,8 +6,4 @@ class User {
     this.username = username.toLowerCase();
     this.password = password;
   }
-
-  getCurrentUser() {
-    localStorage.getItem("loggedInUser");
-  }
 }

@@ -1,20 +1,24 @@
 $(document).ready(function () {
-  registerForm.submit(singUpUserToIndex);
+  const mainPersonDiv = $("#mainPersonDiv");
+  const creditsDiv = $("#creditosDiv");
 
+  registerForm.submit(singUpUserToIndex);
   loginForm.submit(loginToIndex);
 
+  //Botón de ir hacia atrás
   $("#goBackButton").click(function () {
     window.history.go(-1);
   });
 
-  const mainPersonDiv = $("#mainPersonDiv");
-  const creditsDiv = $("#creditosDiv");
-
   const idPersona = getUrlParameter("id");
+  //Si la constante idPersona existe, muestra sus datos
   if (idPersona !== false) {
     $.get(personUrl(idPersona), function (response, state) {
       if (state === "success") {
+        //Se crea un objeto persona y se muestra sus datos principales
         $(".placeholder").removeClass("placeholder");
+        document.title = personObj.name;
+
         const personObj = new Person(
           idPersona,
           response.name,
@@ -27,8 +31,6 @@ $(document).ready(function () {
           response.profile_path,
           response.movie_credits
         );
-
-        document.title = personObj.name;
 
         mainPersonDiv.html("");
         mainPersonDiv.append(`
@@ -60,8 +62,8 @@ $(document).ready(function () {
           </div>
     `);
 
+        //Créditos de la persona
         creditsData = personObj.getCredits();
-
         if (creditsData != false) {
           creditsDiv.append(`
           <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -91,6 +93,7 @@ $(document).ready(function () {
         }
       }
     }).fail(function () {
+      //Si algo falla se vuelve al index
       window.location = "index.html";
     });
   } else {

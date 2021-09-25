@@ -10,6 +10,7 @@ $(document).ready(function () {
   let movies = [];
 
   $.get(popularMoviesUrl, function (response, state) {
+    //Si se trae los datos con exito, con un foreach se crea un objeto película y se lo muestra en un card
     if (state === "success") {
       divPeliculas.html("");
       response.results.forEach(function (movie) {
@@ -27,6 +28,7 @@ $(document).ready(function () {
         displayMovieCard(newMovieObj, divPeliculas);
       });
     } else {
+      //Clausulas de error, si los datos no pueden traerse
       showAlert(
         errorAlert,
         "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego"
@@ -38,6 +40,8 @@ $(document).ready(function () {
       "Error: No se pudo obtener la información de las películas, por favor, vuelva a intentar luego"
     );
   });
+
+  //Función de registro
   function singUpUserIndex(e) {
     wasUserSignup = signUpUser(e);
 
@@ -47,6 +51,7 @@ $(document).ready(function () {
     }
   }
 
+  //Función de inicio de sesión
   function loginIndex(e) {
     wasLogedIn = login(e);
 
@@ -74,7 +79,7 @@ $(document).ready(function () {
     title.text(title.text() + ` de ${user.username}`);
   }
 
-  //Si el usuario ya estaba logeado se inicia sesión automáticamente
+  //Si el usuario ya estaba logeado se personaliza el banner en el inicio
   if (localStorage.getItem("loggedInUser") !== null) {
     createWelcomeMessage(false);
   }

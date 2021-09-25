@@ -67,6 +67,7 @@ class Movie {
     this.similar = similar;
   }
 
+  //Devuelve el trailer de una película, si este existe
   getTrailer() {
     if (this.videos !== [] && this.videos.length > 0) {
       let trailer = `
@@ -78,6 +79,7 @@ class Movie {
     return false;
   }
 
+  //Devuelve el cast de una película, si este existe
   getCast() {
     if (this.cast !== [] && this.cast.length > 0) {
       let castRows = "";
@@ -109,6 +111,7 @@ class Movie {
     return false;
   }
 
+  //Devuelve el crew de una película, si este existe
   getCrew() {
     if (this.crew !== [] && this.crew.length > 0) {
       let crewRows = "";

@@ -1,12 +1,4 @@
 $(document).ready(function () {
-  registerForm.submit(singUpUserToIndex);
-
-  loginForm.submit(loginToIndex);
-
-  $("#goBackButton").click(function () {
-    window.history.go(-1);
-  });
-
   const mainMovieDiv = $("#mainMovieDiv");
   const divPeliculasRelacionadas = $("#divPeliculasRelacionadas");
   const trailerDiv = $("#trailer");
@@ -18,34 +10,55 @@ $(document).ready(function () {
 
   const favoriteButton = $("a.like-button");
 
-  if(localStorage.getItem("loggedInUser") !== null && hasFavoriteMovie(idMovie)){
+  registerForm.submit(singUpUserToIndex);
+  loginForm.submit(loginToIndex);
+
+  //Botón de ir hacia atrás
+  $("#goBackButton").click(function () {
+    window.history.go(-1);
+  });
+
+  //Si el usuario esta logeado y tiene la película actual como favorito, se muestra el botón correspondiente
+  if (
+    localStorage.getItem("loggedInUser") !== null &&
+    hasFavoriteMovie(idMovie)
+  ) {
     favoriteButton.addClass("liked");
+    $("a.like-button p").text("Quitar de favoritos");
   }
 
+  //Si el usuario no esta logeado no se muestra el botón de favoritos
   if (localStorage.getItem("loggedInUser") === null) {
     favoriteButton.addClass("d-none");
   } else {
+    //Si esta logeado se le asigna el funcionamiento al botón para agregar y quitar películas de favorito
     favoriteButton.on("click", function (e) {
       $(this).toggleClass("liked");
-      if($(this).hasClass("liked")){
+      if ($(this).hasClass("liked")) {
+        $("a.like-button p").text("Quitar de favoritos");
         addFavoriteMovie(idMovie);
-      }else{
+      } else {
+        $("a.like-button p").text("Agregar a favoritos");
         removeFavoriteMovie(idMovie);
       }
     });
   }
 
+  //Si hay un idMovie
   if (idMovie !== false) {
     $.get(movieUrl(idMovie), function (response, state) {
       if (state === "success") {
+        //Se muestra la vista de película, creando un objeto Movie, y cargado la pagina con sus datos
         $(".placeholder").removeClass("placeholder");
+        document.title = movieOjb.title;
+
         const movieOjb = new Movie(
           idMovie,
           response.title,
           response.release_date !== undefined &&
-          response.release_date.length !== 0
-            ? response.release_date
-            : null,
+          response.release_date.length !== 0 ?
+          response.release_date :
+          null,
           response.poster_path,
           response.overview,
           response.vote_average,
@@ -62,62 +75,55 @@ $(document).ready(function () {
           response.credits.crew,
           response.similar.results
         );
-        document.title = movieOjb.title;
 
+        //Imagen de fondo
         movieBg.attr("src", movieOjb.backdropImg);
+
+        //Datos Principales
         mainMovieDiv.html("");
         mainMovieDiv.append(`
                 <div class="col-12 col-md-3">
-                    <img src="${movieOjb.posterUrl}" class="img-fluid" alt="${
-          movieOjb.title
-        } (${movieOjb.year})">
+                    <img src="${movieOjb.posterUrl}" class="img-fluid" alt="${movieOjb.title
+          } (${movieOjb.year})">
                 </div>
                 <div class="col-9 text-justify">
-                    <h2>${movieOjb.title} ${
-          movieOjb.originalTitle != movieOjb.title
+                    <h2>${movieOjb.title} ${movieOjb.originalTitle != movieOjb.title
             ? `(${movieOjb.originalTitle})`
             : ""
-        }</h2>
-                    ${
-                      movieOjb.tagline.length > 0
-                        ? `<h5>"${movieOjb.tagline}"</h5>`
-                        : ""
-                    }
+          }</h2>
+                    ${movieOjb.tagline.length > 0
+            ? `<h5>"${movieOjb.tagline}"</h5>`
+            : ""
+          }
                     <p>${movieOjb.description}</p>
-                    ${
-                      movieOjb.releaseDate != null
-                        ? `<p>Fecha de lanzamiento: ${movieOjb.releaseDate}</p>`
-                        : ""
-                    }
-                    ${
-                      movieOjb.geners != null
-                        ? `<p>Generos: ${movieOjb.geners}</p>`
-                        : ""
-                    }
-                    <p>Presupuesto: ${
-                      parseFloat(movieOjb.budget) > 0
-                        ? `$${movieOjb.budget}`
-                        : "No disponible"
-                    } - Recaudación: ${
-          parseFloat(movieOjb.revenue) > 0
+                    ${movieOjb.releaseDate != null
+            ? `<p>Fecha de lanzamiento: ${movieOjb.releaseDate}</p>`
+            : ""
+          }
+                    ${movieOjb.geners != null
+            ? `<p>Generos: ${movieOjb.geners}</p>`
+            : ""
+          }
+                    <p>Presupuesto: ${parseFloat(movieOjb.budget) > 0
+            ? `$${movieOjb.budget}`
+            : "No disponible"
+          } - Recaudación: ${parseFloat(movieOjb.revenue) > 0
             ? `$${movieOjb.revenue}`
             : "No disponible"
-        }</p>
-                    ${
-                      parseInt(movieOjb.voteCount) > 0
-                        ? `<p>${movieOjb.rating}/10 (${movieOjb.voteCount} votos)</p>`
-                        : ""
-                    }
-                    <p>Duracion: ${
-                      parseInt(movieOjb.runtime) > 0
-                        ? `${movieOjb.runtime} minutos`
-                        : "No disponible"
-                    }</p>
+          }</p>
+                    ${parseInt(movieOjb.voteCount) > 0
+            ? `<p>${movieOjb.rating}/10 (${movieOjb.voteCount} votos)</p>`
+            : ""
+          }
+                    <p>Duracion: ${parseInt(movieOjb.runtime) > 0
+            ? `${movieOjb.runtime} minutos`
+            : "No disponible"
+          }</p>
                 </div>
           `);
 
+        //Trailer de pelicula
         const trailerMovie = movieOjb.getTrailer();
-
         if (trailerMovie != false) {
           trailerDiv.append(`
           <div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -132,8 +138,8 @@ $(document).ready(function () {
           trailerDiv.addClass("d-none");
         }
 
+        //Cast de la película
         const castData = movieOjb.getCast();
-
         if (castData != false) {
           castDiv.append(`
           <div id="flush-collapseTwo" class="accordion-collapse collapse"
@@ -160,8 +166,8 @@ $(document).ready(function () {
           castDiv.addClass("d-none");
         }
 
+        //Crew de la película
         const crewData = movieOjb.getCrew();
-
         if (crewData != false) {
           crewDiv.append(`
             <div id="flush-collapseThree" class="accordion-collapse collapse"
@@ -188,6 +194,7 @@ $(document).ready(function () {
           crewDiv.addClass("d-none");
         }
 
+        //Películas relacionadas
         divPeliculasRelacionadas.html("");
         if (movieOjb.similar.length > 0) {
           movieOjb.similar.forEach((similarMovie) => {
@@ -207,6 +214,7 @@ $(document).ready(function () {
         }
       }
     }).fail(function () {
+      //Si hay algúWn fallo se vuelve al index
       window.location = "index.html";
     });
   } else {
