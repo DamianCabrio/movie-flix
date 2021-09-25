@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MovieFlix</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
 <body>
@@ -49,116 +49,179 @@
   </nav>
 
   <main class="container">
-    <div class="alert alert-success d-none" role="alert" id="successLoginAlert"></div>
-    <div class="bg-light p-5 rounded" id="hero">
-      <h1 id="mainTitle">MovieFlix</h1>
-      <p class="lead">Tu lugar para películas.</p>
+    <div class="alert alert-success" role="alert" id="successLoginAlert" style="display: none;"></div>
+    <div class="alert alert-danger" role="alert" id="errorLoginAlert" style="display: none;"></div>
+    <div id="hero-container">
+      <div class="bg-light p-5 rounded" id="hero">
+        <h1 id="mainTitle">MovieFlix</h1>
+        <p class="lead">Tu lugar para películas.</p>
+      </div>
+    </div>
+
+    <div class="container mt-3">
+      <h2 class="text-center">Películas populares en Argentina</h2>
+      <br /><br />
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="divPeliculas">
+        <div class="card" aria-hidden="true">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
+            role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+          </svg>
+          <div class="card-body">
+            <h5 class="card-title placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </h5>
+            <p class="card-text placeholder-glow">
+              <span class="placeholder col-7"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-6"></span>
+              <span class="placeholder col-8"></span>
+            </p>
+            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+          </div>
+        </div>
+        <div class="card" aria-hidden="true">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
+            role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+          </svg>
+          <div class="card-body">
+            <h5 class="card-title placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </h5>
+            <p class="card-text placeholder-glow">
+              <span class="placeholder col-7"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-6"></span>
+              <span class="placeholder col-8"></span>
+            </p>
+            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+          </div>
+        </div>
+        <div class="card" aria-hidden="true">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
+            role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+          </svg>
+          <div class="card-body">
+            <h5 class="card-title placeholder-glow">
+              <span class="placeholder col-6"></span>
+            </h5>
+            <p class="card-text placeholder-glow">
+              <span class="placeholder col-7"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-4"></span>
+              <span class="placeholder col-6"></span>
+              <span class="placeholder col-8"></span>
+            </p>
+            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalLogIn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLogInLabel">
+              Iniciar Sesión
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm" class="needs-validation" novalidate>
+              <div class="alert alert-danger" role="alert" id="errorAlertLogin" style="display: none;"></div>
+              <div class="mb-3">
+                <label for="userLogin" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="userLogin" required />
+                <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
+              </div>
+              <div class="mb-3">
+                <label for="passwordLogin" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passwordLogin" required />
+                <div class="invalid-feedback">Por favor ingrese una contraseña</div>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" />
+                <label class="form-check-label" for="rememberMe">Recuerdame</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalRegister" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalRegisterLabel">Registrarse</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="registerForm" class="needs-validation" novalidate>
+              <div class="alert alert-danger" role="alert" id="errorAlertRegister" style="display: none;"></div>
+              <div class="mb-3">
+                <label for="nameRegister" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nameRegister" required />
+                <div class="invalid-feedback">Por favor ingrese un nombre</div>
+              </div>
+              <div class="mb-3">
+                <label for="surnameRegister" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="surnameRegister" required />
+                <div class="invalid-feedback">Por favor ingrese un apellido</div>
+              </div>
+              <div class="mb-3">
+                <label for="userRegister" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="userRegister" required />
+                <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
+              </div>
+              <div class="mb-3">
+                <label for="passwordRegister" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passwordRegister" required />
+                <div class="invalid-feedback">Por favor ingrese una contraseña</div>
+              </div>
+              <div class="mb-3">
+                <label for="confirmPasswordRegister" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="confirmPasswordRegister" required />
+                <div class="invalid-feedback">Por favor confirme su contraseña</div>
+              </div>
+              <button type="submit" class="btn btn-primary text-center">Enviar</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <div class="container mt-3">
-    <h2 class="text-center">Peliculas Populares</h2>
-    <br /><br />
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="divPeliculas"></div>
-  </div>
-
-  <div class="modal fade" id="modalLogIn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLogInLabel">
-            Iniciar Sesión
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="loginForm" class="needs-validation" novalidate>
-            <div class="alert alert-danger d-none" role="alert" id="errorAlertLogin"></div>
-            <div class="mb-3">
-              <label for="userLogin" class="form-label">Usuario</label>
-              <input type="text" class="form-control" id="userLogin" required />
-              <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
-            </div>
-            <div class="mb-3">
-              <label for="passwordLogin" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="passwordLogin" required />
-              <div class="invalid-feedback">Por favor ingrese una contraseña</div>
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="rememberMe" />
-              <label class="form-check-label" for="rememberMe">Recuerdame</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cerrar
-          </button>
-          <button type="button" class="btn btn-primary" data-bs-target="#modalRegister" data-bs-toggle="modal"
-            data-bs-dismiss="modal">
-            Quiero Registrarme
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="modalRegister" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalRegisterLabel">Registrarse</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="registerForm" class="needs-validation" novalidate>
-            <div class="alert alert-danger d-none" role="alert" id="errorAlertRegister"></div>
-            <div class="mb-3">
-              <label for="nameRegister" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nameRegister" required />
-              <div class="invalid-feedback">Por favor ingrese un nombre</div>
-            </div>
-            <div class="mb-3">
-              <label for="surnameRegister" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="surnameRegister" required />
-              <div class="invalid-feedback">Por favor ingrese un apellido</div>
-            </div>
-            <div class="mb-3">
-              <label for="userRegister" class="form-label">Usuario</label>
-              <input type="text" class="form-control" id="userRegister" required />
-              <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
-            </div>
-            <div class="mb-3">
-              <label for="passwordRegister" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="passwordRegister" required />
-              <div class="invalid-feedback">Por favor ingrese una contraseña</div>
-            </div>
-            <div class="mb-3">
-              <label for="confirmPasswordRegister" class="form-label">Confirmar contraseña</label>
-              <input type="password" class="form-control" id="confirmPasswordRegister" required />
-              <div class="invalid-feedback">Por favor confirme su contraseña</div>
-            </div>
-            <button type="submit" class="btn btn-primary text-center">Enviar</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cerrar
-          </button>
-          <button class="btn btn-primary" data-bs-target="#modalLogIn" data-bs-toggle="modal"
-            data-bs-dismiss="modal">Quiero Iniciar Sesión</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="./assets/js/classes/Movie.js"></script>
+  <script src="./assets/js/classes/User.js"></script>
+  <script src="./assets/js/utils/globalConsts.js"></script>
+  <script src="./assets/js/utils/generalFunctions.js"></script>
+  <script src="./assets/js/utils/userFunction.js"></script>
+  <script src="./assets/js/index.js"></script>
 </body>
 
 </html>

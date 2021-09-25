@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <title></title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MovieFlix</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item" id="logInButton">
+                        <a class="nav-link" aria-current="page" data-bs-toggle="modal" href="#modalLogIn"
+                            role="button">Iniciar
+                            Sesión</a>
+                    </li>
+                    <li class="nav-item" id="registerButton">
+                        <a class="nav-link" aria-current="page" data-bs-toggle="modal" href="#modalRegister"
+                            role="button">Registro</a>
+                    </li>
+                    <li class="nav-item d-none" id="logOutButton">
+                        <a class="nav-link" aria-current="page" role="button">Cerrar
+                            Sesión</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Ej: Fight Club..."
+                        aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">
+                        Buscar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <img src="" id="movieBg">
+    <main class="container">
+        <a href="index.html" class="btn btn-primary">Volver atrás</a>
+        <div class="container mt-3 py-3 bg-light">
+            <div class="row" id="mainMovieDiv">
+                <div class="col-3">
+                    <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg"
+                        role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#868e96"></rect>
+                    </svg>
+                </div>
+                <div class="col-9 text-justify">
+                    <h2 class="placeholder">Escuadron suicida</h2>
+                    <h5 class="placeholder">"Se mueren por salvar el mundo."</h5>
+                    <p class="placeholder">Un grupo de super villanos se encuentran encerrados en Belle Reve, una
+                        prisión de alta seguridad
+                        con la tasa de mortalidad más alta de Estados Unidos. Para salir de allí harán cualquier cosa,
+                        incluso unirse al grupo Task Force X, dedicado a llevar a cabo misiones suicidas bajo las
+                        órdenes de Amanda Waller. Fuertemente armados son enviados a la isla Corto Maltese, una jungla
+                        repleta de enemigos.</p>
+                    <p class="placeholder">Fecha de lanzamiento: 2021-07-28</p>
+                    <p class="placeholder">Generos: Acción, Aventura, Fantasía</p>
+                    <p class="placeholder">Presupuesto: $180000000 - Recaudación $80334747</p>
+                    <p class="placeholder">8.1/10 (2176 votos)</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="accordion accordion-flush" id="movieMultimedia">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed placeholder" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne">
+                                Videos
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingOne" data-bs-parent="#movieMultimedia">
+                            <div class="accordion-body">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
+                                tempora eaque sapiente laboriosam ab a molestias libero voluptates esse? Inventore
+                                officiis optio sapiente maiores qui officia rerum placeat saepe iusto.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed placeholder" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo">
+                                Cast
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingTwo" data-bs-parent="#movieMultimedia">
+                            <div class="accordion-body">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Quisquam rem nulla inventore, praesentium atque modi suscipit provident facilis nostrum
+                                debitis assumenda sit ratione, in ipsam repudiandae sapiente et accusantium voluptates.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed placeholder" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree">
+                                Crew
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingThree" data-bs-parent="#movieMultimedia">
+                            <div class="accordion-body">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Quisquam rem nulla inventore, praesentium atque modi suscipit provident facilis nostrum
+                                debitis assumenda sit ratione, in ipsam repudiandae sapiente et accusantium voluptates.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalLogIn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLogInLabel">
+                            Iniciar Sesión
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginForm" class="needs-validation" novalidate>
+                            <div class="alert alert-danger" role="alert" id="errorAlertLogin" style="display: none;">
+                            </div>
+                            <div class="mb-3">
+                                <label for="userLogin" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="userLogin" required />
+                                <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordLogin" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="passwordLogin" required />
+                                <div class="invalid-feedback">Por favor ingrese una contraseña</div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe" />
+                                <label class="form-check-label" for="rememberMe">Recuerdame</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalRegister" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalRegisterLabel">Registrarse</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="registerForm" class="needs-validation" novalidate>
+                            <div class="alert alert-danger" role="alert" id="errorAlertRegister" style="display: none;">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameRegister" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nameRegister" required />
+                                <div class="invalid-feedback">Por favor ingrese un nombre</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="surnameRegister" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="surnameRegister" required />
+                                <div class="invalid-feedback">Por favor ingrese un apellido</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userRegister" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="userRegister" required />
+                                <div class="invalid-feedback">Por favor ingrese un nombre de usuario</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordRegister" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="passwordRegister" required />
+                                <div class="invalid-feedback">Por favor ingrese una contraseña</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPasswordRegister" class="form-label">Confirmar contraseña</label>
+                                <input type="password" class="form-control" id="confirmPasswordRegister" required />
+                                <div class="invalid-feedback">Por favor confirme su contraseña</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary text-center">Enviar</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./assets/js/classes/Movie.js"></script>
+    <script src="./assets/js/classes/User.js"></script>
+    <script src="./assets/js/utils/globalConsts.js"></script>
+    <script src="./assets/js/utils/generalFunctions.js"></script>
+    <script src="./assets/js/utils/userFunction.js"></script>
+    <script src="./assets/js/pelicula.js"></script>
+</body>
+
+</html>
